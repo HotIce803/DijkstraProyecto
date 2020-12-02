@@ -25,20 +25,36 @@ def main():
         g.Algoritmo_Dijkstra(objetivo);
     elif opcion == '2':
         print("Seleccione el grafo:\n")
-        print("\t1. Grafo 5 nodos")
+        print("\t1. Grafo 5 nodos")            
         print("\t2. Grafo 8 nodos")
-        print("\t3. Grafo 12 nodos")
+        print("\t3. Grafo 12 nodos")    
         opcion = input(f'Ingresar numero de la opcion: ')
         if opcion == '1':
-            pass
+            g = Grafo(5)
+            g.grafo=[[0,7,3,0,0],[0,0,0,6,3],[3,0,0,0,0],[0,6,0,0,0],[5,3,6,5,0]]
+            g.Draw()  
+            for objetivo in range(5):
+                g.Algoritmo_Dijkstra(objetivo);
+            print(f'El tiempo promedio de ejecución es: {g.suma/5} milisegundos')
         elif opcion == '2':
-            pass
+            g = Grafo(8)
+            g.grafo=[[0,7,3,0,0,0,0,6],[0,0,0,6,3,3,0,0],[3,0,0,0,0,0,0,0],[0,6,0,0,0,5,0,0],[5,3,6,5,0,0,0,6],[0,3,0,0,0,0,0,0],[0,0,0,0,0,6,0,0],[6,0,0,0,6,0,7,0]]
+            g.Draw()  
+            for objetivo in range(8):
+                g.Algoritmo_Dijkstra(objetivo);
+            print(f'El tiempo promedio de ejecución es: {g.suma/5} milisegundos')
         elif opcion == '3':
-            pass
+            g = Grafo(12)
+            g.grafo=[[0,7,3,0,0,0,0,6,0,0,0,0],[0,0,0,6,3,3,0,0,0,6,0,0],[3,0,0,0,0,0,0,0,0,0,7,0],[0,6,0,0,0,5,0,0,0,0,0,0],[5,3,6,5,0,0,0,6,0,0,0,0],[0,3,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,6,0,0,0,0,0,7],[6,0,0,0,6,0,7,0,6,0,0,0],[0,0,0,0,0,0,4,6,0,0,0,0],[0,0,0,3,0,5,0,0,0,0,0,0],[0,0,7,4,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,7,0,3,0,0,0]]
+            g.Draw()  
+            for objetivo in range(12):
+                g.Algoritmo_Dijkstra(objetivo);
+            print(f'El tiempo promedio de ejecución es: {g.suma/5} milisegundos')
 class Grafo:
     def __init__(self,vertices):
         self.vertices = vertices
         self.grafo = [[0 for columna in range(vertices)] for fila in range (vertices)]
+        self.suma=0
 
     def Mostrar (self,distancias):
         print(f'Distancias mínimas:\n')
@@ -54,7 +70,8 @@ class Grafo:
 
         return indice_minimo
 
-    def Algoritmo_Dijkstra(self,nodo_origen):#partida
+    def Algoritmo_Dijkstra(self,nodo_origen):#partida        
+        start_time = time.time() 
         distancias = [float ('inf')] * self.vertices
         distancias [nodo_origen] = 0
         SPT = [False] * self.vertices
@@ -67,6 +84,9 @@ class Grafo:
                     distancias[vertice] = distancias[nodo_actual] + self.grafo[nodo_actual][vertice]
 
         self.Mostrar(distancias)
+        tiempo_ejecucion = (time.time() - start_time)*1000
+        self.suma+=tiempo_ejecucion
+        print(f'Tiempo de ejecución: {tiempo_ejecucion} milisegundos')
 
     def Draw (self):
         grafo = self.grafo
@@ -86,23 +106,7 @@ class Grafo:
                 cad+=f'|  {grafo[i][j]}  '
             print(cad)
         print('\n')
-            
-
-
-
-
-
-
-        
-        
-        
-        
-        
-
-
-
-
-
+ 
 if __name__ =="__main__":
    main()
 
